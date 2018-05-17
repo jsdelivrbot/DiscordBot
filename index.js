@@ -1,91 +1,60 @@
+//Bot creado por <name> utilizando: node.js y discord.js
+//Utilizando Heroku como servidor del bot asi como Github y Heroku CLI
+
+//Enlaces externos:
+//https://capudev.herokuapp.com/
+//https://github.com/Bubbr/proyecto1
+
+
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const fs = require('fs');
+const bot = new Discord.Client({disableEveryone: true});
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
+const prefix = process.env.PREFIX;
 
-client.on('ready', () => {
-  client.user.setActivity('Con tu corazón', {type: 'PLAYING'});
+bot.commands = new Discord.Collection();
+
+fs.readdir("./commands/", (err, files) => {
+  if(err) console.log(err);
+
+  let jsfiles = files.filter(f => f.split(".").pop() === "js");
+  if(jsfiles.length <= 0) {
+    console.log("Error cargando los comandos!");
+    return;
+  }
+  console.log(`Cargando ${jsfiles.length} comandos!...`);
+
+  jsfiles.forEach((f, i) => {
+    let props = require(`./commands/${f}`);
+    console.log(`${i + 1}: ${f} cargado!`);
+    bot.commands.set(props.help.name, props);
+  });
+});
+
+bot.on('ready', () => {
+  bot.user.setActivity('nada', {type: 'PLAYING'});
   console.log('Listo!');
 });
-//declaracion de variables
-var fortunes = [
-  "Sip",
-  "Nope",
-  "No puedo responder eso",
-  "Si",
-  "No",
-  "Tal vez",
-  "No soy cientifico",
-  "Esto es incomodo",
-  "Seguro",
-  "Confia en ello",
-  "Es una broma?",
-  "Claro que no"
-];
 
-let prefix = process.env.PREFIX;
-
-client.on('message', message => {
-  if (!message.content.startsWith(prefix) || !message.guild) return;
+bot.on('message', async message => {
   if (message.author.bot) return;
-  
-  const cont = message.content.split(' ').slice(1);
-  const args = cont.join(' ');
-  if (message.content.startsWith(prefix+'8ball')) {
-    ball8(message.content);
-  }
-  if (message.content.startsWith(prefix+'help')) {
-    showHelp(message.author);
-  }
-  if (message.content.startsWith(prefix+'botinfo')) {
-    botinfo(message.author);
-  }
-  if (message.content.startsWith(prefix+'ping')){
-      message.channel.send('pong');
+  if (message.channel.type === "dm") return;
 
-  } else if (message.content.startsWith(prefix+ 'say')) {
-      if (!args) return;
-      message.channel.send(args);
-  }
-  function ball8(question) {
-    if (args[1]) {
-      message.channel.send("```css\n"+fortunes[Math.floor(Math.random() * fortunes.length)]+"\n```");
-    } else {
-      message.channel.send("Escribe tu pregunta despues de ``s!8bal``");
-    }
-  }
-  function showHelp(author) {
-    const embed = new Discord.RichEmbed()
-      .setThumbnail()
-      .addField('Comandos (sin categoria aun)', "``s!ping`` ``s!botinfo`` ``s!8ball`` ``s!avatar`` ``s!help`` ``s!cat``", true)
-      .addField('Tip:','Coloca ``"s!help [comando]"`` para mostrar mas informacion acerca del comando.\n ``Ej: s!help ping``', true)
-      .setFooter('consultado por '+(author.username), author.displayAvatarURL)
-      .setTimestamp()
+  let messageArray = message.content.split(/\s+/g);
+  let command = messageArray[0];
+  let args = messageArray.slice(1);
 
-      message.channel.send({embed});
+  if (!command.startsWith(prefix)) return;
 
-      return author;
-  }
-  function botinfo(author) {
-    const embed = new Discord.RichEmbed()
-      .setColor('0x9489b3')
-      .setThumbnail()
-      .addField('Nombre del bot', "Soso!")
-      .addField('Version', "1.0.0", true)
-      .addField('Creador', "<@"+process.env.ownerId+">", true)
-      .addField('Referencias', '[Documentacion]('+"https://capudev.herokuapp.com/"+')', true)
-      .setFooter('consultado por '+(author.username), author.displayAvatarURL)
-      .setTimestamp()
+  let cmd = bot.commands.get(command.slice(prefix.length));
+  if (cmd) cmd.run(bot, message, args);
 
-      message.channel.send({embed});
-
-      return author;
-  }
 });
 
-client.login(process.env.TOKEN);
+bot.login(process.env.TOKEN);
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
