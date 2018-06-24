@@ -1,0 +1,65 @@
+{
+    "categories":{
+        "music":{
+            "join":{
+                "usage":"s!join",
+                "alias":"j",
+                "desc":""
+            },
+            "leave": {
+                "usage":"s!leave",
+                "alias":"l",
+                "desc":""
+            },
+            "play": {
+                "usage":"s!play",
+                "alias":"p",
+                "desc":""
+            },
+            "stop": {
+                "usage":"s!stop",
+                "alias":"s",
+                "desc":""
+            },
+            "skip":{
+                "usage":"s!skip",
+                "alias":"k",
+                "desc":""
+            },
+            "queue": {
+                "usage":"s!queue",
+                "alias":"q",
+                "desc":""
+            },
+            "volume": {
+                "usage":"s!volume",
+                "alias":"v",
+                "desc":""
+            },
+            "repeat": {
+                "usage":"s!repeat",
+                "alias":"r",
+                "desc":""
+            },
+            "delete":{
+                "usage":"s!delete",
+                "alias":"d",
+                "desc":""
+            }
+        },
+        "images":{
+            "cat":{
+                "usage":"s!cat",
+                "alias":"null",
+                "desc":""
+            }
+        },
+        "nsfw": {
+            "hentai": {
+                "usage":"s!hentai",
+                "alias":"null",
+                "desc":""
+            }
+        }
+    }
+}

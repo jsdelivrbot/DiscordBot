@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
@@ -38,12 +37,3 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
 - [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
 - [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-=======
-# proyecto1
-
-Bot para Discord v1.2.0
-
-[Invitar bot](https://discordapp.com/oauth2/authorize?client_id=431198347647385600&scope=bot&permissions=2146958591)
-
-[Mi servidor](https://discordapp.com/invite/D97JYXh)
->>>>>>> 7504e89b5f8b854ca5bd6512eb3939087e3f3a6c

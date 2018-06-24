@@ -35,7 +35,7 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 bot.on('ready', () => {
-  bot.user.setActivity('nada', {type: 'PLAYING'});
+  bot.user.setActivity('Osu!', {type: 'PLAYING'});
   console.log('Listo!');
 });
 
@@ -50,8 +50,11 @@ bot.on('message', async message => {
   if (!command.startsWith(prefix)) return;
 
   let cmd = bot.commands.get(command.slice(prefix.length));
-  if (cmd) cmd.run(bot, message, args);
-
+  if (cmd) {
+    cmd.run(bot, message, args);
+  } else {
+    message.reply("Comando desconocido, utiliza ``s!help`` para ver la lista de comandos");
+  }
 });
 
 bot.login(process.env.TOKEN);
