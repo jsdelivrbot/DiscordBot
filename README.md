@@ -37,3 +37,10 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
 - [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
 - [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+=======
+# proyecto1
+
+Bot para Discord v1.2.0
+
+Puedes unirte a [mi servidor](https://discordapp.com/invite/D97JYXh) de Discord para no perderte de actualizaciones.
+>>>>>>> ba84fb76235b29f48f88868cf1adab63025e5f79
